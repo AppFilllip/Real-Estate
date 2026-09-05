@@ -36,6 +36,19 @@ export function Contact() {
               <dt className="channel__label">Coverage</dt>
               <dd className="channel__value">{contact.coverage}</dd>
             </div>
+
+            {/* Reassurance drawn from the approvals the projects actually
+                carry — no claims beyond what the portfolio data states. */}
+            <div className="channel">
+              <dt className="channel__label">Assurances</dt>
+              <dd className="channel__value">
+                <ul className="channel__chips">
+                  {site.credentials.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </dd>
+            </div>
           </dl>
         </div>
 

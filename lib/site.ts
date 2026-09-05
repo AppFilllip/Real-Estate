@@ -34,10 +34,9 @@ export type Leader = {
   image: string;
   alt: string;
   /**
-   * The three supplied photographs are framed very differently — one is a
-   * studio full-length shot, two are close crops. `zoom` and `origin` scale and
-   * anchor each one inside the shared portrait frame so all three figures read
-   * at a similar size, instead of one person floating small beside two others.
+   * All three portraits are shot 4:5, matching the frame, so `cover` shows each
+   * one whole. `zoom` and `origin` make the small remaining adjustments that
+   * bring the three figures to the same apparent size.
    */
   zoom: number;
   origin: string;
@@ -262,34 +261,32 @@ export const site = {
       {
         name: 'Rahul Sharma',
         role: 'CMD & Founder',
-        image: '/leaders/rahul-sharma.webp',
+        image: '/leaders/rahul-sharma.png',
         alt: 'Portrait of Rahul Sharma, CMD and Founder of Rajdhara Colonizers',
-        // Already a close crop that fills the frame.
-        zoom: 1.02,
+        // Fills the 4:5 frame as shot — the reference the other two match.
+        zoom: 1,
         origin: 'center 30%',
-        natural: { width: 288, height: 360 }
+        natural: { width: 1122, height: 1402 }
       },
       {
         name: 'Suraj Yadav',
         role: 'MD & Co-Founder',
-        image: '/leaders/suraj-yadav.webp',
+        image: '/leaders/suraj.png',
         alt: 'Portrait of Suraj Yadav, MD and Co-Founder of Rajdhara Colonizers',
-        // Pulled in so the figure matches the others and the parked vehicles
-        // behind fall outside the frame.
-        zoom: 1.26,
-        origin: 'center 28%',
-        natural: { width: 374, height: 467 }
+        // Nudged in: slightly more headroom than the reference shot.
+        zoom: 1.05,
+        origin: 'center 26%',
+        natural: { width: 1122, height: 1402 }
       },
       {
         name: 'Ramesh Choudhary',
         role: 'COO & MD',
-        image: '/leaders/ramesh-choudhary.webp',
+        image: '/leaders/ramesh.png',
         alt: 'Portrait of Ramesh Choudhary, COO and MD of Rajdhara Colonizers',
-        // Full-length studio shot: scaled up and anchored high so the face
-        // stays in frame at the same figure size as the other two.
-        zoom: 1.5,
-        origin: 'center 14%',
-        natural: { width: 512, height: 640 }
+        // Studio shot sits smaller in its frame; pulled in to match the others.
+        zoom: 1.12,
+        origin: 'center 28%',
+        natural: { width: 1122, height: 1402 }
       }
     ] as Leader[]
   },

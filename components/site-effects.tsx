@@ -54,7 +54,10 @@ export function SiteEffects() {
             observer.unobserve(entry.target);
           });
         },
-        { rootMargin: '0px 0px -12% 0px', threshold: 0.12 }
+        /* A fixed pixel inset rather than a percentage: on a very tall viewport
+           a percentage inset can cover content that never scrolls past it, so
+           those elements would stay hidden forever. */
+        { rootMargin: '0px 0px -80px 0px', threshold: 0 }
       );
       revealables.forEach((el) => observer.observe(el));
       cleanups.push(() => observer.disconnect());
