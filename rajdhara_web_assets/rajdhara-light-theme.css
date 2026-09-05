@@ -1,0 +1,58 @@
+:root {
+  --bg: #F8FAFC;
+  --surface: #FFFFFF;
+  --surface-soft: #F1F5F9;
+  --text: #0F2747;
+  --text-muted: #64748B;
+  --line: #E2E8F0;
+
+  --brand-blue: #0B8FE8;
+  --brand-blue-deep: #0B3D91;
+  --brand-orange: #FF6A00;
+  --brand-orange-soft: #FFF3E8;
+
+  --success: #198754;
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --shadow-card: 0 12px 35px rgba(15, 39, 71, .08);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.section {
+  padding: 88px 0;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+}
+
+.eyebrow {
+  color: var(--brand-orange);
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-weight: 700;
+}
+
+.btn-primary {
+  background: var(--brand-blue-deep);
+  color: #fff;
+  border-radius: 999px;
+}
+
+.btn-primary:hover {
+  background: var(--brand-blue);
+}
+
+.btn-accent {
+  background: var(--brand-orange);
+  color: #fff;
+  border-radius: 999px;
+}
