@@ -1,16 +1,23 @@
 'use client';
 
 import { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
 /**
  * One small client island drives every page-level interaction: the header's
- * scroll state, section reveals, the brand arc draw, counters and scroll-spy.
+ * scroll state, section reveals, the brand arc draw and the counters.
  *
  * Keeping it in a single effect means the rest of the site stays server-rendered
  * — the markup is complete and readable before any JavaScript arrives, and the
  * reveal styles only engage once `.js` is on the document.
+ *
+ * It re-runs on every route change. On a client-side navigation the previous
+ * page's observed nodes are gone and the new page's `.reveal` elements have
+ * never been seen, so without re-binding they would stay at opacity 0.
  */
 export function SiteEffects() {
+  const pathname = usePathname();
+
   useEffect(() => {
     const root = document.documentElement;
     root.classList.add('js');
@@ -37,8 +44,12 @@ export function SiteEffects() {
     }
 
     /* ------------------------------------------------------ reveals ----- */
+    // Anything already shown is skipped, so a re-run never replays an
+    // animation the visitor has watched.
     const revealables = Array.from(
-      document.querySelectorAll<HTMLElement>('.reveal, .rd-arc')
+      document.querySelectorAll<HTMLElement>(
+        '.reveal:not(.is-in), .rd-arc:not(.is-drawn)'
+      )
     );
     const show = (el: HTMLElement) =>
       el.classList.add(el.classList.contains('rd-arc') ? 'is-drawn' : 'is-in');
@@ -64,11 +75,14 @@ export function SiteEffects() {
     }
 
     /* ----------------------------------------------------- counters ----- */
-    const counters = Array.from(document.querySelectorAll<HTMLElement>('[data-count-to]'));
+    const counters = Array.from(
+      document.querySelectorAll<HTMLElement>('[data-count-to]:not([data-counted])')
+    );
     const runCounter = (el: HTMLElement) => {
       const target = Number(el.dataset.countTo);
       const pad = Number(el.dataset.countPad ?? 0);
       if (Number.isNaN(target)) return;
+      el.dataset.counted = 'true';
 
       const render = (value: number) => {
         el.textContent = pad ? String(value).padStart(pad, '0') : String(value);
@@ -109,38 +123,8 @@ export function SiteEffects() {
       cleanups.push(() => counterObserver.disconnect());
     }
 
-    /* --------------------------------------------------- scroll spy ----- */
-    const navLinks = Array.from(document.querySelectorAll<HTMLElement>('[data-nav-target]'));
-    if (navLinks.length && 'IntersectionObserver' in window) {
-      const byId = new Map<string, HTMLElement>();
-      const sections: Element[] = [];
-
-      navLinks.forEach((link) => {
-        const id = link.dataset.navTarget;
-        if (!id) return;
-        const section = document.getElementById(id);
-        if (!section) return;
-        byId.set(id, link);
-        sections.push(section);
-      });
-
-      const spy = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
-            navLinks.forEach((l) => l.classList.remove('is-active'));
-            byId.get(entry.target.id)?.classList.add('is-active');
-          });
-        },
-        { rootMargin: '-45% 0px -50% 0px' }
-      );
-
-      sections.forEach((section) => spy.observe(section));
-      cleanups.push(() => spy.disconnect());
-    }
-
     return () => cleanups.forEach((fn) => fn());
-  }, []);
+  }, [pathname]);
 
   return null;
 }

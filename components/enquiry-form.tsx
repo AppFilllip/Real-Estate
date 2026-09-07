@@ -6,7 +6,7 @@ import { ArrowGlyph } from './ui/brand';
 
 type Errors = Partial<Record<'name' | 'phone' | 'email', string>>;
 
-export function EnquiryForm() {
+export function EnquiryForm({ defaultProject }: { defaultProject?: string }) {
   const { contact } = site;
   const endpoint = contact.formEndpoint;
 
@@ -158,6 +158,7 @@ export function EnquiryForm() {
           </select>
         </div>
 
+        {/* Arriving from a project page preselects that project. */}
         <div className="field">
           <label className="field__label" htmlFor="enq-project">
             Project
@@ -166,7 +167,7 @@ export function EnquiryForm() {
             className="field__input field__input--select"
             id="enq-project"
             name="project"
-            defaultValue=""
+            defaultValue={defaultProject ?? ''}
           >
             <option value="">No preference</option>
             {site.projects.items.map((project) => (

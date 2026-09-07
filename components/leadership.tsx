@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { site } from '@/lib/site';
-import { ArrowArc, ButtonLink, DisplayLines, Eyebrow } from './ui/brand';
+import { ArrowArc, ButtonLink, DisplayLines, Eyebrow, LinkArrow } from './ui/brand';
 
 /**
  * Large portrait plates on a staggered baseline. The supplied photographs vary
@@ -9,28 +9,49 @@ import { ArrowArc, ButtonLink, DisplayLines, Eyebrow } from './ui/brand';
  *
  * The company statement runs as a pull-quote in the section header — set in the
  * page's display face, deliberately not boxed like a testimonial.
+ *
+ * `heading` is dropped on /leadership, where the page banner has already
+ * introduced the section; the pull-quote stays either way.
  */
-export function Leadership() {
+export function Leadership({
+  heading = true,
+  withLink = true
+}: {
+  heading?: boolean;
+  withLink?: boolean;
+}) {
   const { leadership } = site;
 
   return (
     <section className="leadership section" id="leadership">
       <div className="container">
-        <header className="section-head section-head--quote">
-          <div className="section-head__lead">
-            <Eyebrow className="reveal">{leadership.eyebrow}</Eyebrow>
-            <h2 className="display-2 reveal">
-              <DisplayLines lines={leadership.title} block="display-2" />
-            </h2>
-          </div>
+        {heading ? (
+          <header className="section-head section-head--quote">
+            <div className="section-head__lead">
+              <Eyebrow className="reveal">{leadership.eyebrow}</Eyebrow>
+              <h2 className="display-2 reveal">
+                <DisplayLines lines={leadership.title} block="display-2" />
+              </h2>
+              {withLink && (
+                <LinkArrow link={leadership.more} className="leadership__more reveal" />
+              )}
+            </div>
 
-          <blockquote className="pullquote reveal">
+            <blockquote className="pullquote reveal">
+              <p>{leadership.quote}</p>
+              <footer>
+                <cite>{leadership.quoteSource}</cite>
+              </footer>
+            </blockquote>
+          </header>
+        ) : (
+          <blockquote className="pullquote pullquote--wide reveal">
             <p>{leadership.quote}</p>
             <footer>
               <cite>{leadership.quoteSource}</cite>
             </footer>
           </blockquote>
-        </header>
+        )}
 
         <ul className="leaders">
           {leadership.people.map((person, i) => (
@@ -60,7 +81,46 @@ export function Leadership() {
                   <span className="leader__dot" aria-hidden="true" />
                   {person.role}
                 </p>
+                {/* Biographies render only once supplied — see lib/site.ts. */}
+                {person.bio && <p className="leader__bio">{person.bio}</p>}
               </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+/** How the company operates — /leadership only. */
+export function Values() {
+  const { values } = site.pages.leadership;
+
+  return (
+    <section className="values section">
+      <div className="container">
+        <header className="section-head">
+          <div className="section-head__lead">
+            <Eyebrow className="reveal">{values.eyebrow}</Eyebrow>
+            <h2 className="display-2 reveal">
+              <DisplayLines lines={values.title} block="display-2" />
+            </h2>
+          </div>
+          <div className="section-head__aside reveal">
+            <p>{values.intro}</p>
+          </div>
+        </header>
+
+        <ul className="values__grid">
+          {values.items.map((item, i) => (
+            <li
+              className="value reveal"
+              key={item.title}
+              style={{ '--reveal-i': i } as React.CSSProperties}
+            >
+              <span className="value__rule" aria-hidden="true" />
+              <h3 className="value__title">{item.title}</h3>
+              <p className="value__text">{item.text}</p>
             </li>
           ))}
         </ul>

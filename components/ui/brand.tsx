@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import NextLink from 'next/link';
 import type { Link as SiteLink } from '@/lib/site';
 
 /*
@@ -63,6 +64,35 @@ export function Pin() {
   );
 }
 
+/**
+ * Routes go through next/link so navigation stays client-side; in-page hashes
+ * and external URLs stay plain anchors, where a router would only get in the
+ * way of the browser's own behaviour.
+ */
+function Anchor({
+  href,
+  className,
+  children,
+  ...rest
+}: {
+  href: string;
+  className?: string;
+  children: ReactNode;
+} & React.AnchorHTMLAttributes<HTMLAnchorElement>) {
+  if (href.startsWith('/')) {
+    return (
+      <NextLink className={className} href={href} {...rest}>
+        {children}
+      </NextLink>
+    );
+  }
+  return (
+    <a className={className} href={href} {...rest}>
+      {children}
+    </a>
+  );
+}
+
 export function Eyebrow({
   children,
   className
@@ -106,10 +136,10 @@ export function DisplayLines({ lines, block }: { lines: string[]; block: string 
 
 export function LinkArrow({ link, className }: { link: SiteLink; className?: string }) {
   return (
-    <a className={`link-arrow${className ? ` ${className}` : ''}`} href={link.href}>
+    <Anchor className={`link-arrow${className ? ` ${className}` : ''}`} href={link.href}>
       <span>{link.label}</span>
       <ArrowGlyph className="link-arrow__glyph" />
-    </a>
+    </Anchor>
   );
 }
 
@@ -123,9 +153,9 @@ export function ButtonLink({
   className?: string;
 }) {
   return (
-    <a className={`btn btn--${kind}${className ? ` ${className}` : ''}`} href={link.href}>
+    <Anchor className={`btn btn--${kind}${className ? ` ${className}` : ''}`} href={link.href}>
       <span>{link.label}</span>
       <ArrowGlyph className="btn__glyph" />
-    </a>
+    </Anchor>
   );
 }

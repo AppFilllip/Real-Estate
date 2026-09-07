@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import { site } from '@/lib/site';
+import Link from 'next/link';
+import { routes, site } from '@/lib/site';
 import { ArrowGlyph } from './ui/brand';
 
 function Column({ title, children }: { title: string; children: React.ReactNode }) {
@@ -48,15 +49,18 @@ export function SiteFooter() {
         <Column title="Explore">
           {site.nav.map((item) => (
             <li key={item.href}>
-              <a href={item.href}>{item.label}</a>
+              <Link href={item.href}>{item.label}</Link>
             </li>
           ))}
+          <li>
+            <Link href={routes.faq}>FAQs</Link>
+          </li>
         </Column>
 
         <Column title="Ongoing Projects">
           {site.projects.items.map((p) => (
             <li key={p.id}>
-              <a href={`#project-${p.id}`}>{p.name}</a>
+              <Link href={routes.project(p.id)}>{p.name}</Link>
             </li>
           ))}
         </Column>
@@ -79,10 +83,10 @@ export function SiteFooter() {
             <span>{site.contact.coverage}</span>
           </li>
           <li>
-            <a className="footer__cta-link" href={site.cta.href}>
+            <Link className="footer__cta-link" href={site.cta.href}>
               {site.cta.label}
               <ArrowGlyph className="link-arrow__glyph" />
-            </a>
+            </Link>
           </li>
         </Column>
       </div>
@@ -94,11 +98,12 @@ export function SiteFooter() {
         <ul className="footer__legal">
           {site.footer.legal.map((l) => (
             <li key={l.label}>
-              <a href={l.href}>{l.label}</a>
+              <Link href={l.href}>{l.label}</Link>
             </li>
           ))}
         </ul>
-        <a className="to-top" href="#home">
+        {/* Every page renders its content inside #main, so this works site-wide. */}
+        <a className="to-top" href="#main">
           <span className="visually-hidden">Back to top</span>
           <ArrowGlyph className="to-top__glyph" />
         </a>

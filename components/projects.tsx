@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import { site, type Project } from '@/lib/site';
+import Link from 'next/link';
+import { routes, site, type Project } from '@/lib/site';
 import { ArrowGlyph, DisplayLines, Eyebrow, LinkArrow, Pin } from './ui/brand';
 
 /*
@@ -21,7 +22,7 @@ const SIZES: Record<Project['layout'], string> = {
   e: '(max-width: 860px) 100vw, (max-width: 1180px) 42vw, 25vw'
 };
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
+export function ProjectCard({ project, index }: { project: Project; index: number }) {
   return (
     <article
       className={`pcard pcard--${project.layout} pcard--${project.variant} reveal`}
@@ -52,13 +53,14 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         </p>
 
         <h3 className="pcard__name">
-          <a
+          {/* The whole tile is the target — see .pcard__link::after in the CSS. */}
+          <Link
             className="pcard__link"
-            href="#contact"
-            aria-label={`Enquire about ${project.name}, ${project.location}`}
+            href={routes.project(project.id)}
+            aria-label={`${project.name}, ${project.location} — view project`}
           >
             {project.name}
-          </a>
+          </Link>
         </h3>
 
         <p className="pcard__loc">
@@ -73,7 +75,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         </ul>
 
         <span className="pcard__cta" aria-hidden="true">
-          <span>Enquire</span>
+          <span>View Project</span>
           <ArrowGlyph className="pcard__glyph" />
         </span>
       </div>
@@ -81,30 +83,74 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   );
 }
 
-export function Projects() {
+/**
+ * The mosaic with its editorial header. `heading` is dropped on /projects,
+ * where the page banner has already said what this is.
+ */
+export function Projects({ heading = true }: { heading?: boolean }) {
   const { projects } = site;
 
   return (
     <section className="projects section" id="projects">
       <div className="container">
-        <header className="section-head">
-          <div className="section-head__lead">
-            <Eyebrow className="reveal">{projects.eyebrow}</Eyebrow>
-            <h2 className="display-2 reveal">
-              <DisplayLines lines={projects.title} block="display-2" />
-            </h2>
-          </div>
-          <div className="section-head__aside reveal">
-            <p>{projects.intro}</p>
-            <LinkArrow link={{ label: 'Enquire about a project', href: '#contact' }} />
-          </div>
-        </header>
+        {heading && (
+          <header className="section-head">
+            <div className="section-head__lead">
+              <Eyebrow className="reveal">{projects.eyebrow}</Eyebrow>
+              <h2 className="display-2 reveal">
+                <DisplayLines lines={projects.title} block="display-2" />
+              </h2>
+            </div>
+            <div className="section-head__aside reveal">
+              <p>{projects.intro}</p>
+              <LinkArrow link={projects.more} />
+            </div>
+          </header>
+        )}
 
         <div className="projects__mosaic">
           {projects.items.map((project, i) => (
             <ProjectCard key={project.id} project={project} index={i} />
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+/**
+ * Format rail for /projects — the four things Rajdhara develops, each with a
+ * count derived from the portfolio rather than typed in, so it cannot drift.
+ */
+export function Formats() {
+  const { formats, formatsTitle } = site.pages.projects;
+  const countOf = (type: string) =>
+    site.projects.items.filter((p) => p.type === type).length;
+
+  return (
+    <section className="formats" aria-label={formatsTitle}>
+      <div className="container">
+        <h2 className="formats__title">{formatsTitle}</h2>
+        <ul className="formats__grid">
+          {formats.map((format, i) => {
+            const count = countOf(format.type);
+            return (
+              <li
+                className="format reveal"
+                key={format.type}
+                style={{ '--reveal-i': i } as React.CSSProperties}
+              >
+                <p className="format__count">
+                  <span data-count-to={count} data-count-pad="2">
+                    {String(count).padStart(2, '0')}
+                  </span>
+                </p>
+                <h3 className="format__name">{format.type}</h3>
+                <p className="format__text">{format.text}</p>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </section>
   );
@@ -128,7 +174,7 @@ export function Completed() {
           </h2>
           <p className="completed__intro reveal">{completed.intro}</p>
           <LinkArrow
-            link={{ label: 'Request project details', href: '#contact' }}
+            link={{ label: 'Request project details', href: routes.contact }}
             className="reveal"
           />
         </div>

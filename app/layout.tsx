@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, Playfair_Display } from 'next/font/google';
-import { site } from '@/lib/site';
+import { routes, site } from '@/lib/site';
 import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
 import { SiteEffects } from '@/components/site-effects';
@@ -32,7 +32,11 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: `${site.name} — ${site.tagline}`,
+  // Inner pages set only their own title; the template supplies the rest.
+  title: {
+    default: `${site.name} — ${site.tagline}`,
+    template: `%s — ${site.name}`
+  },
   description: site.description,
   applicationName: site.name,
   icons: { icon: site.brand.favicon, apple: site.brand.favicon },
@@ -59,6 +63,7 @@ function structuredData() {
     '@context': 'https://schema.org',
     '@type': 'RealEstateAgent',
     name: site.name,
+    url: siteUrl,
     description: site.description,
     areaServed: site.region,
     slogan: site.tagline,
@@ -67,6 +72,7 @@ function structuredData() {
     ...(site.footer.social.length ? { sameAs: site.footer.social.map((s) => s.href) } : {}),
     makesOffer: site.projects.items.map((p) => ({
       '@type': 'Offer',
+      url: `${siteUrl}${routes.project(p.id)}`,
       itemOffered: {
         '@type': 'Residence',
         name: p.name,
