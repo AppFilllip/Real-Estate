@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { routes, site } from '@/lib/site';
-import { ArrowGlyph, DisplayLines, Eyebrow } from './ui/brand';
+import { DisplayLines, Eyebrow, Icon } from './ui/brand';
 import { EnquiryForm } from './enquiry-form';
 
 /**
@@ -88,7 +88,7 @@ export function Contact({
                     <Link className="askabout__row" href={routes.project(project.id)}>
                       <span className="askabout__name">{project.name}</span>
                       <span className="askabout__type">{project.type}</span>
-                      <ArrowGlyph className="askabout__glyph" />
+                      <Icon name="building" className="askabout__glyph" />
                     </Link>
                   </li>
                 ))}

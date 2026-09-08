@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { site } from '@/lib/site';
-import { ArrowArc, ButtonLink, DisplayLines, Eyebrow, LinkArrow } from './ui/brand';
+import { ArrowArc, ButtonLink, DisplayLines, Eyebrow, Icon, LinkArrow } from './ui/brand';
 
 /**
  * Split-canvas hero: an off-white editorial panel butted against a full-bleed
@@ -11,6 +11,11 @@ import { ArrowArc, ButtonLink, DisplayLines, Eyebrow, LinkArrow } from './ui/bra
 export function Hero() {
   const { hero, projects } = site;
   const count = projects.items.length;
+  const heroStats = [
+    { value: `${count.toString().padStart(2, '0')}`, label: 'Projects Underway', icon: 'building' },
+    { value: '04', label: 'Completed Projects', icon: 'check' },
+    { value: '05', label: 'Jaipur Locations', icon: 'map' }
+  ];
 
   return (
     <section className="hero" id="home">
@@ -27,9 +32,23 @@ export function Hero() {
           <p className="lede hero__lede reveal">{hero.lede}</p>
 
           <div className="hero__actions reveal">
-            <ButtonLink link={hero.primary} kind="primary" />
-            <ButtonLink link={hero.secondary} kind="ghost" />
+            <ButtonLink link={hero.primary} kind="accent" icon="grid" />
+            <ButtonLink link={hero.secondary} kind="ghost" icon="chat" />
           </div>
+
+          <ul className="hero__stats reveal" aria-label="Rajdhara portfolio summary">
+            {heroStats.map((stat) => (
+              <li className="hero__stat" key={stat.label}>
+                <span className="hero__stat-icon" aria-hidden="true">
+                  <Icon name={stat.icon as 'building' | 'check' | 'map'} />
+                </span>
+                <span>
+                  <strong>{stat.value}</strong>
+                  <small>{stat.label}</small>
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div className="hero__foot">
@@ -42,16 +61,19 @@ export function Hero() {
       </div>
 
       <div className="hero__visual">
-        <div className="hero__plate">
+        <div className="hero__showcase">
           <Image
-            className="hero__image"
             src={hero.image}
             alt={hero.imageAlt}
             fill
             sizes="(max-width: 1023px) 100vw, 48vw"
             priority
           />
-          <span className="hero__tint" aria-hidden="true" />
+          <div className="hero__showcase-strip" aria-hidden="true">
+            <span>Residential Plots</span>
+            <span>Farm Estates</span>
+            <span>Commercial Land</span>
+          </div>
         </div>
 
         <div className="hero__card">

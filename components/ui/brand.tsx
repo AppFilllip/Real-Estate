@@ -64,6 +64,82 @@ export function Pin() {
   );
 }
 
+export function Icon({
+  name,
+  className
+}: {
+  name: 'grid' | 'chat' | 'building' | 'check' | 'map' | 'info' | 'users' | 'up' | 'next';
+  className?: string;
+}) {
+  const common = {
+    fill: 'none',
+    stroke: 'currentColor',
+    strokeWidth: 1.8,
+    strokeLinecap: 'round' as const,
+    strokeLinejoin: 'round' as const
+  };
+
+  return (
+    <svg
+      className={`ui-icon${className ? ` ${className}` : ''}`}
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      focusable="false"
+    >
+      {name === 'grid' && (
+        <>
+          <rect x="4" y="4" width="6" height="6" rx="1.4" {...common} />
+          <rect x="14" y="4" width="6" height="6" rx="1.4" {...common} />
+          <rect x="4" y="14" width="6" height="6" rx="1.4" {...common} />
+          <rect x="14" y="14" width="6" height="6" rx="1.4" {...common} />
+        </>
+      )}
+      {name === 'chat' && (
+        <path
+          d="M5.2 6.7A6.9 6.9 0 0 1 12 3.8a6.9 6.9 0 0 1 6.8 6.9 6.9 6.9 0 0 1-7 6.9 7.8 7.8 0 0 1-2.7-.5L5 19l1.1-3.6a6.8 6.8 0 0 1-.9-8.7Z"
+          {...common}
+        />
+      )}
+      {name === 'building' && (
+        <>
+          <path d="M5 20V5.8c0-.9.7-1.6 1.6-1.6h7.8c.9 0 1.6.7 1.6 1.6V20" {...common} />
+          <path d="M3.5 20h17" {...common} />
+          <path d="M9 8h3M9 12h3M9 16h3" {...common} />
+        </>
+      )}
+      {name === 'check' && (
+        <>
+          <circle cx="12" cy="12" r="8.5" {...common} />
+          <path d="m8.4 12.2 2.3 2.3 4.9-5" {...common} />
+        </>
+      )}
+      {name === 'map' && (
+        <>
+          <path d="M12 21s6-5.6 6-11a6 6 0 0 0-12 0c0 5.4 6 11 6 11Z" {...common} />
+          <circle cx="12" cy="10" r="2" {...common} />
+        </>
+      )}
+      {name === 'info' && (
+        <>
+          <circle cx="12" cy="12" r="8.5" {...common} />
+          <path d="M12 11.2V16" {...common} />
+          <path d="M12 8h.01" {...common} />
+        </>
+      )}
+      {name === 'users' && (
+        <>
+          <circle cx="9" cy="8" r="3" {...common} />
+          <path d="M3.8 19c.8-3.2 2.6-4.8 5.2-4.8s4.4 1.6 5.2 4.8" {...common} />
+          <path d="M15.2 6.2a2.7 2.7 0 0 1 0 5.2" {...common} />
+          <path d="M16.2 14.4c2 .5 3.3 2 4 4.6" {...common} />
+        </>
+      )}
+      {name === 'up' && <path d="m7 14 5-5 5 5" {...common} />}
+      {name === 'next' && <path d="m9 6 6 6-6 6" {...common} />}
+    </svg>
+  );
+}
+
 /**
  * Routes go through next/link so navigation stays client-side; in-page hashes
  * and external URLs stay plain anchors, where a router would only get in the
@@ -102,7 +178,7 @@ export function Eyebrow({
 }) {
   return (
     <p className={`eyebrow${className ? ` ${className}` : ''}`}>
-      <ArrowGlyph className="eyebrow__glyph" />
+      <span className="eyebrow__mark" aria-hidden="true" />
       <span>{children}</span>
     </p>
   );
@@ -134,11 +210,29 @@ export function DisplayLines({ lines, block }: { lines: string[]; block: string 
   );
 }
 
-export function LinkArrow({ link, className }: { link: SiteLink; className?: string }) {
+function iconForLink(label: string): 'grid' | 'chat' | 'building' | 'check' | 'map' | 'info' | 'users' | 'up' | 'next' {
+  const text = label.toLowerCase();
+  if (text.includes('contact') || text.includes('enquire') || text.includes('talk') || text.includes('request')) return 'chat';
+  if (text.includes('project')) return 'grid';
+  if (text.includes('company') || text.includes('about')) return 'info';
+  if (text.includes('leadership') || text.includes('team')) return 'users';
+  if (text.includes('location') || text.includes('visit')) return 'map';
+  return 'check';
+}
+
+export function LinkArrow({
+  link,
+  className,
+  icon
+}: {
+  link: SiteLink;
+  className?: string;
+  icon?: 'grid' | 'chat' | 'building' | 'check' | 'map' | 'info' | 'users' | 'up' | 'next';
+}) {
   return (
     <Anchor className={`link-arrow${className ? ` ${className}` : ''}`} href={link.href}>
       <span>{link.label}</span>
-      <ArrowGlyph className="link-arrow__glyph" />
+      <Icon name={icon ?? iconForLink(link.label)} className="link-arrow__glyph" />
     </Anchor>
   );
 }
@@ -146,16 +240,18 @@ export function LinkArrow({ link, className }: { link: SiteLink; className?: str
 export function ButtonLink({
   link,
   kind,
-  className
+  className,
+  icon = 'grid'
 }: {
   link: SiteLink;
   kind: 'primary' | 'accent' | 'ghost' | 'ghost-invert';
   className?: string;
+  icon?: 'grid' | 'chat' | 'building' | 'check' | 'map' | 'info' | 'users' | 'up' | 'next';
 }) {
   return (
     <Anchor className={`btn btn--${kind}${className ? ` ${className}` : ''}`} href={link.href}>
       <span>{link.label}</span>
-      <ArrowGlyph className="btn__glyph" />
+      <Icon name={icon} className="btn__glyph" />
     </Anchor>
   );
 }

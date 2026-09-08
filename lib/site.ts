@@ -130,9 +130,9 @@ export const site = {
     primary: { label: 'Explore Projects', href: routes.projects } as Link,
     secondary: { label: 'Talk to Us', href: routes.contact } as Link,
     /** The only supplied asset with enough resolution to carry a full-bleed plate. */
-    image: '/projects/rajdhara-transport-nagar.webp',
+    image: '/projects/rajdhara-hero-premium.png',
     imageAlt:
-      'Entrance gate elevation of Rajdhara Transport Nagar, Dudu, on Main Ajmer Road',
+      'Premium planned township entrance with landscaped roads inspired by Jaipur developments',
     badge: {
       eyebrow: 'Now developing',
       caption: 'projects underway across Jaipur',
@@ -180,9 +180,9 @@ export const site = {
         text: 'Residential, farm and commercial formats held to the same standard of development.'
       }
     ],
-    image: '/projects/raghunandan-enclave.webp',
+    image: '/projects/rajdhara-residential-premium.png',
     imageAlt:
-      'Landscaped central court at Raghunandan Enclave, Shivdaspura Mode, Tonk Road, Jaipur',
+      'Planned residential plotted township with internal roads and landscaped plot boundaries',
     /** Home carries the summary; the full story lives on /about. */
     more: { label: 'More about the company', href: routes.about } as Link
   },
@@ -213,9 +213,9 @@ export const site = {
         location: 'Morsar, Jaipur',
         type: 'Farm Plots',
         highlights: ['RERA Registered', 'Spacious Farm Plots', 'Premium Amenities'],
-        image: '/projects/rajdhara-krishnam-bagh.webp',
-        alt: 'Entrance canopy and manned gate at Rajdhara Krishnam Bagh, Morsar, Jaipur',
-        natural: { width: 485, height: 273 },
+        image: '/projects/rajdhara-farm-premium.png',
+        alt: 'Premium farm plot development with internal road, green holdings and Aravalli hills',
+        natural: { width: 1680, height: 944 },
         layout: 'a',
         variant: 'overlay',
         summary:
@@ -262,13 +262,11 @@ export const site = {
         location: 'Boraj, Ajmer Road, Jaipur',
         type: 'Residential Plots',
         highlights: ['Premium Location', 'Modern Infrastructure', 'Government Approved'],
-        image: '/projects/rajdhara-shyam-vihar.webp',
-        alt: 'Gated entrance and internal road at Rajdhara Shyam Vihar, Boraj, Ajmer Road, Jaipur',
-        natural: { width: 367, height: 206 },
+        image: '/projects/rajdhara-residential-premium.png',
+        alt: 'Premium residential plotted township with internal roads and landscaped entry',
+        natural: { width: 1680, height: 944 },
         layout: 'b',
         variant: 'panel',
-        // This source carries a baked-in rounded white border — crop past it.
-        zoom: 1.09,
         summary:
           'A government-approved residential layout at Boraj on Ajmer Road, with a gated ' +
           'entrance and internal roads already laid.',
@@ -312,9 +310,9 @@ export const site = {
         location: 'Shivdaspura Mode, Tonk Road, Jaipur',
         type: 'Residential Plots',
         highlights: ['RERA Approved', 'JDA Approved', '100% Agreement Value'],
-        image: '/projects/raghunandan-enclave.webp',
-        alt: 'Landscaped central temple court at Raghunandan Enclave, Shivdaspura Mode, Tonk Road, Jaipur',
-        natural: { width: 384, height: 216 },
+        image: '/projects/rajdhara-residential-premium.png',
+        alt: 'Premium residential plotted township with internal roads and landscaped plot boundaries',
+        natural: { width: 1680, height: 944 },
         layout: 'c',
         variant: 'panel',
         summary:
@@ -361,9 +359,9 @@ export const site = {
         location: 'Mokhampura, Ajmer Road, Jaipur',
         type: 'Commercial Spaces',
         highlights: ['Prime Business Location', 'Government Approved', 'Modern Commercial Spaces'],
-        image: '/projects/rajdhara-eco-park.webp',
-        alt: 'Curved glazed facade of the commercial block at Rajdhara Eco Park, Mokhampura, Ajmer Road, Jaipur',
-        natural: { width: 283, height: 159 },
+        image: '/projects/rajdhara-commercial-premium.png',
+        alt: 'Modern commercial plotted development with broad roads and landscaped business infrastructure',
+        natural: { width: 1680, height: 944 },
         layout: 'd',
         variant: 'panel',
         summary:
@@ -408,12 +406,12 @@ export const site = {
         location: 'Dudu, Main Ajmer Road',
         type: 'Commercial Plots',
         highlights: ['RERA Registered', 'Municipal Corporation Approved', 'Commercial Plots'],
-        image: '/projects/rajdhara-transport-nagar.webp',
-        alt: 'Illuminated entrance arch at Rajdhara Transport Nagar, Dudu, Main Ajmer Road',
-        natural: { width: 1400, height: 788 },
+        image: '/projects/rajdhara-commercial-premium.png',
+        alt: 'Modern transport and logistics business park with broad roads and commercial plot infrastructure',
+        natural: { width: 1680, height: 944 },
         layout: 'e',
         variant: 'overlay',
-        focal: '56% 46%',
+        focal: '52% 48%',
         summary:
           'RERA-registered commercial plots at Dudu on Main Ajmer Road, approved by the ' +
           'municipal corporation and entered through a lit arch.',

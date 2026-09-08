@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from 'react';
 import { site } from '@/lib/site';
-import { ArrowGlyph } from './ui/brand';
+import { Icon } from './ui/brand';
 
 type Errors = Partial<Record<'name' | 'phone' | 'email', string>>;
 
@@ -193,7 +193,7 @@ export function EnquiryForm({ defaultProject }: { defaultProject?: string }) {
 
       <button className="btn btn--primary btn--block" type="submit">
         <span>Send Enquiry</span>
-        <ArrowGlyph className="btn__glyph" />
+        <Icon name="chat" className="btn__glyph" />
       </button>
 
       <p

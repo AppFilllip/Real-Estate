@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { routes, site, type Project } from '@/lib/site';
-import { ArrowGlyph, DisplayLines, Eyebrow, LinkArrow, Pin } from './ui/brand';
+import { DisplayLines, Eyebrow, Icon, LinkArrow, Pin } from './ui/brand';
 
 /*
  * Editorial mosaic rather than a row of matching cards.
@@ -76,7 +76,7 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
 
         <span className="pcard__cta" aria-hidden="true">
           <span>View Project</span>
-          <ArrowGlyph className="pcard__glyph" />
+          <Icon name="grid" className="pcard__glyph" />
         </span>
       </div>
     </article>

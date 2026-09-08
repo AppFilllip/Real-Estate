@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { routes, site, type Project } from '@/lib/site';
-import { ArrowGlyph, Eyebrow, LinkArrow, Pin } from './ui/brand';
+import { Eyebrow, Icon, LinkArrow, Pin } from './ui/brand';
 import { Breadcrumbs } from './page-hero';
 
 /**
@@ -132,7 +132,7 @@ export function ProjectBody({ project }: { project: Project }) {
 
           <Link className="btn btn--primary btn--block pspec__cta" href={routes.contact}>
             <span>Enquire About This Project</span>
-            <ArrowGlyph className="btn__glyph" />
+            <Icon name="chat" className="btn__glyph" />
           </Link>
         </aside>
       </div>

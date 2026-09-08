@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { routes, site } from '@/lib/site';
-import { ArrowGlyph } from './ui/brand';
+import { Icon } from './ui/brand';
 
 /**
  * A nav item is current when its route is the active one — and for `/projects`,
@@ -112,9 +112,9 @@ export function SiteHeader() {
           </nav>
 
           <div className="site-header__actions">
-            <Link className="btn btn--primary btn--sm site-header__cta" href={site.cta.href}>
+            <Link className="btn btn--accent btn--sm site-header__cta" href={site.cta.href}>
               <span>{site.cta.label}</span>
-              <ArrowGlyph className="btn__glyph" />
+              <Icon name="chat" className="btn__glyph" />
             </Link>
             <button
               ref={toggleRef}
@@ -169,7 +169,7 @@ export function SiteHeader() {
           <div className="mobile-menu__foot">
             <Link className="btn btn--accent btn--block" href={site.cta.href} onClick={close}>
               <span>{site.cta.label}</span>
-              <ArrowGlyph className="btn__glyph" />
+              <Icon name="chat" className="btn__glyph" />
             </Link>
             <p className="mobile-menu__note">{site.contact.coverage}</p>
           </div>

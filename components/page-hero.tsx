@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { routes } from '@/lib/site';
-import { ArrowArc, ArrowGlyph, DisplayLines, Eyebrow } from './ui/brand';
+import { ArrowArc, DisplayLines, Eyebrow, Icon } from './ui/brand';
 
 export type Crumb = { label: string; href?: string };
 
@@ -88,7 +88,7 @@ export function NextPage({ label, href, note }: { label: string; href: string; n
         <span className="nextpage__note">{note}</span>
         <span className="nextpage__label">
           {label}
-          <ArrowGlyph className="nextpage__glyph" />
+          <Icon name="next" className="nextpage__glyph" />
         </span>
       </Link>
     </section>

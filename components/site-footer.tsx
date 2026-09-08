@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { routes, site } from '@/lib/site';
-import { ArrowGlyph } from './ui/brand';
+import { Icon } from './ui/brand';
 
 function Column({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -85,7 +85,7 @@ export function SiteFooter() {
           <li>
             <Link className="footer__cta-link" href={site.cta.href}>
               {site.cta.label}
-              <ArrowGlyph className="link-arrow__glyph" />
+              <Icon name="chat" className="link-arrow__glyph" />
             </Link>
           </li>
         </Column>
@@ -105,7 +105,7 @@ export function SiteFooter() {
         {/* Every page renders its content inside #main, so this works site-wide. */}
         <a className="to-top" href="#main">
           <span className="visually-hidden">Back to top</span>
-          <ArrowGlyph className="to-top__glyph" />
+          <Icon name="up" className="to-top__glyph" />
         </a>
       </div>
     </footer>

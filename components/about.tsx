@@ -16,50 +16,54 @@ export function About({ withLink = true }: { withLink?: boolean }) {
   return (
     <section className="about section" id="about">
       <div className="container about__grid">
-        <div className="about__statement">
-          <Eyebrow className="reveal">{about.eyebrow}</Eyebrow>
-          <h2 className="display-2 about__title reveal">
-            <DisplayLines lines={about.title} block="about__title" />
-          </h2>
+        <div className="about__media">
+          <figure className="about__figure reveal">
+            <Image
+              src={about.image}
+              alt={about.imageAlt}
+              fill
+              sizes="(max-width: 1023px) 100vw, 46vw"
+            />
+          </figure>
         </div>
 
-        <div className="about__narrative">
-          {about.body.map((para, i) => (
-            <p
-              className="about__para lede reveal"
-              key={para.slice(0, 24)}
-              style={{ '--reveal-i': i } as React.CSSProperties}
-            >
-              {para}
-            </p>
-          ))}
-          {withLink && <LinkArrow link={about.more} className="about__more reveal" />}
+        <div className="about__content">
+          <div className="about__statement">
+            <Eyebrow className="reveal">{about.eyebrow}</Eyebrow>
+            <h2 className="display-2 about__title reveal">
+              <DisplayLines lines={about.title} block="about__title" />
+            </h2>
+          </div>
+
+          <div className="about__narrative">
+            {about.body.map((para, i) => (
+              <p
+                className="about__para lede reveal"
+                key={para.slice(0, 24)}
+                style={{ '--reveal-i': i } as React.CSSProperties}
+              >
+                {para}
+              </p>
+            ))}
+            {withLink && <LinkArrow link={about.more} className="about__more reveal" />}
+          </div>
+
+          <ul className="about__principles">
+            {about.principles.map((principle, i) => (
+              <li
+                className="principle reveal"
+                key={principle.title}
+                style={{ '--reveal-i': i } as React.CSSProperties}
+              >
+                <span className="principle__index">{String(i + 1).padStart(2, '0')}</span>
+                <div>
+                  <h3 className="principle__title">{principle.title}</h3>
+                  <p className="principle__text">{principle.text}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
-
-        <figure className="about__figure reveal">
-          <Image
-            src={about.image}
-            alt={about.imageAlt}
-            fill
-            sizes="(max-width: 1023px) 100vw, 46vw"
-          />
-        </figure>
-
-        <ul className="about__principles">
-          {about.principles.map((principle, i) => (
-            <li
-              className="principle reveal"
-              key={principle.title}
-              style={{ '--reveal-i': i } as React.CSSProperties}
-            >
-              <span className="principle__index">{String(i + 1).padStart(2, '0')}</span>
-              <div>
-                <h3 className="principle__title">{principle.title}</h3>
-                <p className="principle__text">{principle.text}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
   );
