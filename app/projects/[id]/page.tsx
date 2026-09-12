@@ -1,7 +1,16 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getProject, routes, site } from '@/lib/site';
-import { AlsoDeveloping, ProjectBody, ProjectHero } from '@/components/project-detail';
+import {
+  AlsoDeveloping,
+  LocationMap,
+  MasterPlan,
+  NearbyAttractions,
+  PaymentPlan,
+  ProjectBody,
+  ProjectDocuments,
+  ProjectHero
+} from '@/components/project-detail';
 import { Contact } from '@/components/contact';
 import { Credentials } from '@/components/hero';
 import { Eyebrow } from '@/components/ui/brand';
@@ -69,6 +78,11 @@ export default async function ProjectPage({ params }: Params) {
       <ProjectHero project={project} />
       <Credentials />
       <ProjectBody project={project} />
+      <NearbyAttractions project={project} />
+      <MasterPlan project={project} />
+      <LocationMap project={project} />
+      <PaymentPlan project={project} />
+      <ProjectDocuments project={project} />
       <AlsoDeveloping current={project} />
 
       <div className="penquiry">

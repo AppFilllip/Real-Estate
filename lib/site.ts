@@ -46,6 +46,35 @@ export type Project = {
    * and possession dates appear the moment Rajdhara supplies them.
    */
   facts: Fact[];
+
+  /* ---- Buyer resources — each renders only once supplied ---------------- */
+  /** Points of interest near the project. Empty renders nothing. */
+  nearby: { name: string; distance: string | null }[];
+  /** Direct URL to a downloadable brochure PDF. */
+  brochure: string | null;
+  /** Master-plan / layout-plan image. */
+  masterPlan: { image: string | null; alt: string };
+  /** A Google Maps (or similar) embeddable map URL, and the address it points to. */
+  locationMap: { embedUrl: string | null; address: string | null };
+  /** Payment milestones, e.g. { label: 'Booking Amount', percentage: '10%' }. */
+  paymentPlan: { label: string; percentage: string }[];
+  /** RERA certificate, sanction letters and other approval documents. */
+  documents: { label: string; url: string }[];
+};
+
+export type Testimonial = {
+  name: string;
+  role: string | null;
+  /** Which project the buyer bought into, if known. */
+  project: string | null;
+  quote: string;
+};
+
+export type EventPhoto = {
+  event: string;
+  date: string | null;
+  image: string;
+  alt: string;
 };
 
 export type Leader = {
@@ -82,9 +111,11 @@ export type Channel = {
 export const routes = {
   home: '/',
   about: '/about',
+  whyChooseUs: '/why-choose-us',
   projects: '/projects',
   project: (id: string) => `/projects/${id}`,
   leadership: '/leadership',
+  gallery: '/gallery',
   contact: '/contact',
   faq: '/faq',
   privacy: '/privacy-policy',
@@ -112,8 +143,10 @@ export const site = {
   nav: [
     { label: 'Home', href: routes.home },
     { label: 'About', href: routes.about },
+    { label: 'Why Choose Us', href: routes.whyChooseUs },
     { label: 'Projects', href: routes.projects },
     { label: 'Leadership', href: routes.leadership },
+    { label: 'Gallery', href: routes.gallery },
     { label: 'Contact', href: routes.contact }
   ] as Link[],
 
@@ -254,6 +287,37 @@ export const site = {
           { label: 'Plot Sizes', value: null },
           { label: 'Total Area', value: null },
           { label: 'Possession', value: null }
+        ],
+        // TODO (Rajdhara): supply nearby landmarks, brochure PDF, master-plan
+        // image, a Google Maps embed link, the payment schedule and approval
+        // documents. Each section stays hidden until its data is filled in.
+        // DUMMY CONTENT — for preview only. Replace with real facts before launch.
+        nearby: [
+          { name: 'Ajmer Road Junction', distance: '2 km' },
+          { name: 'Local Market', distance: '3 km' },
+          { name: 'Multi-specialty Hospital', distance: '6 km' },
+          { name: 'Reputed School', distance: '4 km' }
+        ],
+        brochure: '/brochures/sample-brochure.pdf',
+        masterPlan: {
+          image: '/projects/rajdhara-farm-premium.png',
+          alt: 'Rajdhara Krishnam Bagh master plan (sample layout for preview)'
+        },
+        locationMap: {
+          embedUrl: 'https://www.google.com/maps?q=Morsar%2C+Jaipur%2C+Rajasthan&output=embed',
+          address: 'Morsar, Jaipur'
+        },
+        paymentPlan: [
+          { label: 'Booking Amount', percentage: '10%' },
+          { label: 'On Allotment', percentage: '15%' },
+          { label: 'Within 60 Days', percentage: '25%' },
+          { label: 'Within 120 Days', percentage: '25%' },
+          { label: 'On Development Completion', percentage: '15%' },
+          { label: 'On Registration', percentage: '10%' }
+        ],
+        documents: [
+          { label: 'RERA Certificate (Sample)', url: '/docs/sample-document.pdf' },
+          { label: 'Layout Sanction Plan (Sample)', url: '/docs/sample-document.pdf' }
         ]
       },
       {
@@ -302,6 +366,34 @@ export const site = {
           { label: 'Plot Sizes', value: null },
           { label: 'Total Area', value: null },
           { label: 'Possession', value: null }
+        ],
+        // DUMMY CONTENT — for preview only. Replace with real facts before launch.
+        nearby: [
+          { name: 'Ajmer Road National Highway Access', distance: '1 km' },
+          { name: 'Shopping Complex', distance: '3 km' },
+          { name: 'Reputed School', distance: '2.5 km' },
+          { name: 'Railway Station', distance: '9 km' }
+        ],
+        brochure: '/brochures/sample-brochure.pdf',
+        masterPlan: {
+          image: '/projects/rajdhara-residential-premium.png',
+          alt: 'Rajdhara Shyam Vihar master plan (sample layout for preview)'
+        },
+        locationMap: {
+          embedUrl:
+            'https://www.google.com/maps?q=Boraj%2C+Ajmer+Road%2C+Jaipur%2C+Rajasthan&output=embed',
+          address: 'Boraj, Ajmer Road, Jaipur'
+        },
+        paymentPlan: [
+          { label: 'Booking Amount', percentage: '10%' },
+          { label: 'On Allotment', percentage: '20%' },
+          { label: 'Within 90 Days', percentage: '30%' },
+          { label: 'On Development Completion', percentage: '25%' },
+          { label: 'On Registration', percentage: '15%' }
+        ],
+        documents: [
+          { label: 'Government Approval Letter (Sample)', url: '/docs/sample-document.pdf' },
+          { label: 'Layout Sanction Plan (Sample)', url: '/docs/sample-document.pdf' }
         ]
       },
       {
@@ -351,6 +443,35 @@ export const site = {
           { label: 'Plot Sizes', value: null },
           { label: 'Total Area', value: null },
           { label: 'Possession', value: null }
+        ],
+        // DUMMY CONTENT — for preview only. Replace with real facts before launch.
+        nearby: [
+          { name: 'Tonk Road Junction', distance: '1.5 km' },
+          { name: 'Local Market', distance: '2 km' },
+          { name: 'Multi-specialty Hospital', distance: '7 km' },
+          { name: 'Reputed School', distance: '3 km' }
+        ],
+        brochure: '/brochures/sample-brochure.pdf',
+        masterPlan: {
+          image: '/projects/rajdhara-residential-premium.png',
+          alt: 'Raghunandan Enclave master plan (sample layout for preview)'
+        },
+        locationMap: {
+          embedUrl:
+            'https://www.google.com/maps?q=Shivdaspura+Mode%2C+Tonk+Road%2C+Jaipur%2C+Rajasthan&output=embed',
+          address: 'Shivdaspura Mode, Tonk Road, Jaipur'
+        },
+        paymentPlan: [
+          { label: 'Booking Amount', percentage: '10%' },
+          { label: 'On Allotment', percentage: '15%' },
+          { label: 'Within 60 Days', percentage: '25%' },
+          { label: 'Within 120 Days', percentage: '25%' },
+          { label: 'On Development Completion', percentage: '15%' },
+          { label: 'On Registration', percentage: '10%' }
+        ],
+        documents: [
+          { label: 'RERA Certificate (Sample)', url: '/docs/sample-document.pdf' },
+          { label: 'JDA Approval Letter (Sample)', url: '/docs/sample-document.pdf' }
         ]
       },
       {
@@ -398,6 +519,33 @@ export const site = {
           { label: 'Unit Sizes', value: null },
           { label: 'Total Area', value: null },
           { label: 'Possession', value: null }
+        ],
+        // DUMMY CONTENT — for preview only. Replace with real facts before launch.
+        nearby: [
+          { name: 'Ajmer Road Main Junction', distance: '0.5 km' },
+          { name: 'Bus Stand', distance: '2 km' },
+          { name: 'Banking & ATM Hub', distance: '1 km' },
+          { name: 'Railway Station', distance: '10 km' }
+        ],
+        brochure: '/brochures/sample-brochure.pdf',
+        masterPlan: {
+          image: '/projects/rajdhara-commercial-premium.png',
+          alt: 'Rajdhara Eco Park master plan (sample layout for preview)'
+        },
+        locationMap: {
+          embedUrl:
+            'https://www.google.com/maps?q=Mokhampura%2C+Ajmer+Road%2C+Jaipur%2C+Rajasthan&output=embed',
+          address: 'Mokhampura, Ajmer Road, Jaipur'
+        },
+        paymentPlan: [
+          { label: 'Booking Amount', percentage: '15%' },
+          { label: 'On Allotment', percentage: '20%' },
+          { label: 'Within 90 Days', percentage: '30%' },
+          { label: 'On Possession-Ready', percentage: '25%' },
+          { label: 'On Registration', percentage: '10%' }
+        ],
+        documents: [
+          { label: 'Government Approval Letter (Sample)', url: '/docs/sample-document.pdf' }
         ]
       },
       {
@@ -446,6 +594,34 @@ export const site = {
           { label: 'Plot Sizes', value: null },
           { label: 'Total Area', value: null },
           { label: 'Possession', value: null }
+        ],
+        // DUMMY CONTENT — for preview only. Replace with real facts before launch.
+        nearby: [
+          { name: 'Main Ajmer Road Access', distance: '0.2 km' },
+          { name: 'Dudu Bus Stand', distance: '3 km' },
+          { name: 'Local Market', distance: '2 km' },
+          { name: 'Petrol Pump', distance: '1 km' }
+        ],
+        brochure: '/brochures/sample-brochure.pdf',
+        masterPlan: {
+          image: '/projects/rajdhara-commercial-premium.png',
+          alt: 'Rajdhara Transport Nagar master plan (sample layout for preview)'
+        },
+        locationMap: {
+          embedUrl:
+            'https://www.google.com/maps?q=Dudu%2C+Main+Ajmer+Road%2C+Jaipur%2C+Rajasthan&output=embed',
+          address: 'Dudu, Main Ajmer Road'
+        },
+        paymentPlan: [
+          { label: 'Booking Amount', percentage: '15%' },
+          { label: 'On Allotment', percentage: '20%' },
+          { label: 'Within 90 Days', percentage: '30%' },
+          { label: 'On Possession-Ready', percentage: '25%' },
+          { label: 'On Registration', percentage: '10%' }
+        ],
+        documents: [
+          { label: 'RERA Certificate (Sample)', url: '/docs/sample-document.pdf' },
+          { label: 'Municipal Corporation Approval (Sample)', url: '/docs/sample-document.pdf' }
         ]
       }
     ] as Project[]
@@ -509,6 +685,51 @@ export const site = {
         bio: null // TODO (Rajdhara): supply a short biography.
       }
     ] as Leader[]
+  },
+
+  testimonials: {
+    eyebrow: 'Client Testimonials',
+    title: ['What Our', 'Buyers _Say_.'],
+    intro: 'Direct from families and investors who have bought into a Rajdhara project.',
+    /**
+     * DUMMY CONTENT — for preview only. TODO (Rajdhara): replace every entry
+     * below with a real, attributable testimonial — name, the project they
+     * bought into, and their own words — before this goes live.
+     */
+    items: [
+      {
+        name: 'Amit Sharma',
+        role: null,
+        project: 'Rajdhara Krishnam Bagh',
+        quote:
+          'Sample testimonial text — the buying process was smooth and the team ' +
+          'answered every question about approvals before we committed.'
+      },
+      {
+        name: 'Priya Choudhary',
+        role: null,
+        project: 'Rajdhara Shyam Vihar',
+        quote:
+          'Sample testimonial text — the roads and gate were already in place when ' +
+          'we visited, which made the decision easier.'
+      },
+      {
+        name: 'Vikram Singh',
+        role: null,
+        project: 'Raghunandan Enclave',
+        quote:
+          'Sample testimonial text — the 100% agreement value made the bank loan ' +
+          'process straightforward.'
+      },
+      {
+        name: 'Neha Agarwal',
+        role: null,
+        project: 'Rajdhara Eco Park',
+        quote:
+          'Sample testimonial text — a good location for our office with clear ' +
+          'approvals shown upfront.'
+      }
+    ] as Testimonial[]
   },
 
   closing: {
@@ -665,6 +886,7 @@ export const site = {
       differences: {
         eyebrow: 'Why Rajdhara',
         title: ['What you get that', 'you should not _have to ask for_.'],
+        more: { label: 'Why Choose Us', href: routes.whyChooseUs } as Link,
         items: [
           {
             title: 'Approvals on the project',
@@ -691,6 +913,24 @@ export const site = {
             text: 'Addresses sit on roads that already carry traffic and development, rather than on land waiting for a highway that may not arrive.'
           }
         ]
+      }
+    },
+
+    whyChooseUs: {
+      meta: {
+        title: 'Why Choose Us',
+        description:
+          'Why buyers choose Rajdhara Colonizers — approvals carried on the project ' +
+          'itself, full agreement value, infrastructure laid before handover, and one ' +
+          'standard held across residential, farm and commercial developments.'
+      },
+      hero: {
+        eyebrow: 'Why Choose Us',
+        title: ['Reasons buyers', 'choose _Rajdhara_.'],
+        lede:
+          'Nothing below is a claim made for its own sake — every point is something ' +
+          'checked project by project: the approvals, the agreement value, and the ' +
+          'infrastructure laid before a plot changes hands.'
       }
     },
 
@@ -742,6 +982,12 @@ export const site = {
       pendingNote:
         'Plot sizes, RERA number and possession details are confirmed by the team on ' +
         'enquiry.',
+      brochureLabel: 'Download Brochure',
+      nearbyTitle: 'Nearby attractions',
+      masterPlanTitle: 'Master plan',
+      locationTitle: 'Location map',
+      paymentTitle: 'Payment plan',
+      documentsTitle: 'RERA & approval documents',
       alsoTitle: 'Also in development',
       enquiry: {
         eyebrow: 'Enquire',
@@ -792,6 +1038,79 @@ export const site = {
           }
         ]
       }
+    },
+
+    gallery: {
+      meta: {
+        title: 'Gallery',
+        description:
+          'Photos from Rajdhara Colonizers site launches, customer meets and company ' +
+          'events across Jaipur.'
+      },
+      hero: {
+        eyebrow: 'Gallery',
+        title: ['Moments from', 'the _Journey_.'],
+        lede:
+          'Site launches, customer meets and milestones from across the Rajdhara ' +
+          'portfolio.'
+      },
+      empty: 'Photos from recent events are being added — check back shortly.',
+      /**
+       * TODO (Rajdhara): replace the placeholder rows below with real event
+       * photos — image, alt text, event name and date. These use the existing
+       * project renders only so the grid layout can be previewed; they are
+       * NOT real event photography and must be swapped before launch.
+       */
+      events: [
+        {
+          event: 'Project Site Photography',
+          date: null,
+          image: '/projects/rajdhara-hero-premium.png',
+          alt: 'Premium planned township entrance with landscaped roads'
+        },
+        {
+          event: 'Project Site Photography',
+          date: null,
+          image: '/projects/rajdhara-residential-premium.png',
+          alt: 'Planned residential plotted township with internal roads'
+        },
+        {
+          event: 'Project Site Photography',
+          date: null,
+          image: '/projects/rajdhara-farm-premium.png',
+          alt: 'Premium farm plot development with internal road and green holdings'
+        },
+        {
+          event: 'Project Site Photography',
+          date: null,
+          image: '/projects/rajdhara-commercial-premium.png',
+          alt: 'Modern commercial plotted development with broad roads'
+        },
+        {
+          event: 'Project Site Photography',
+          date: null,
+          image: '/projects/rajdhara-krishnam-bagh.webp',
+          alt: 'Rajdhara Krishnam Bagh farm plot development'
+        },
+        {
+          event: 'Project Site Photography',
+          date: null,
+          image: '/projects/rajdhara-shyam-vihar.webp',
+          alt: 'Rajdhara Shyam Vihar residential plotted township'
+        },
+        {
+          event: 'Project Site Photography',
+          date: null,
+          image: '/projects/raghunandan-enclave.webp',
+          alt: 'Raghunandan Enclave residential plotted township'
+        },
+        {
+          event: 'Project Site Photography',
+          date: null,
+          image: '/projects/rajdhara-transport-nagar.webp',
+          alt: 'Rajdhara Transport Nagar commercial plot development'
+        }
+      ] as EventPhoto[]
     },
 
     contact: {

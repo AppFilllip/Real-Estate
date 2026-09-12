@@ -2437,7 +2437,9 @@ textarea {
 /* --- Home → page links ---------------------------------------------------- */
 
 .about__more,
-.leadership__more {
+.leadership__more,
+.diffs__more,
+.gteaser__more {
   margin-top: 26px;
 }
 
@@ -3379,6 +3381,259 @@ textarea {
   color: var(--orange);
 }
 
+/* --- Project detail: brochure link ---------------------------------------- */
+
+.pspec__brochure {
+  margin-top: 14px;
+}
+
+/* --- Project detail: nearby attractions ----------------------------------- */
+
+.nearby__title {
+  margin-bottom: clamp(24px, 3vw, 40px);
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+}
+
+.nearby__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+}
+
+.nearby__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px clamp(14px, 1.6vw, 22px);
+  border-bottom: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+  color: var(--navy);
+  font-size: 0.9375rem;
+}
+
+.nearby__item:nth-child(4n + 1) {
+  border-left: 0;
+  padding-left: 0;
+}
+
+.nearby__item .pin {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  color: var(--orange);
+}
+
+.nearby__name {
+  font-weight: 500;
+}
+
+.nearby__distance {
+  margin-left: auto;
+  padding-left: 12px;
+  color: var(--muted-soft);
+  font-size: 0.8125rem;
+  white-space: nowrap;
+}
+
+/* --- Project detail: master plan ------------------------------------------ */
+
+.mplan {
+  background: var(--surface);
+  border-block: 1px solid var(--line);
+}
+
+.mplan__title {
+  margin-bottom: clamp(24px, 3vw, 40px);
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+}
+
+.mplan__figure {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 720px;
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+}
+
+.mplan__figure img {
+  object-fit: contain;
+}
+
+/* --- Project detail: location map ----------------------------------------- */
+
+.lmap__title {
+  margin-bottom: 14px;
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+}
+
+.lmap__address {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: clamp(20px, 2.6vw, 32px);
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+.lmap__address .pin {
+  width: 16px;
+  height: 16px;
+  color: var(--orange);
+}
+
+.lmap__frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.lmap__frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* --- Project detail: payment plan ------------------------------------------ */
+
+.pplan {
+  background: var(--surface);
+  border-block: 1px solid var(--line);
+}
+
+.pplan__title {
+  margin-bottom: clamp(24px, 3vw, 40px);
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+}
+
+.pplan__list {
+  border-top: 1px solid var(--line);
+  max-width: 640px;
+}
+
+.pplan__row {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.pplan__row dt {
+  color: var(--navy);
+  font-size: 0.9375rem;
+}
+
+.pplan__row dd {
+  color: var(--orange);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  text-align: right;
+}
+
+/* --- Project detail: RERA & approval documents ----------------------------- */
+
+.pdocs__title {
+  margin-bottom: clamp(24px, 3vw, 40px);
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+}
+
+.pdocs__list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--grid-gap);
+}
+
+.pdocs__item a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  color: var(--navy);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: border-color 0.3s var(--ease-soft), color 0.3s var(--ease-soft);
+}
+
+.pdocs__item a:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+}
+
+.pdocs__glyph {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  color: var(--orange);
+}
+
+/* --- Home: client testimonials ---------------------------------------------- */
+
+.testimonials__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(24px, 3vw, 40px);
+}
+
+.testimonial__quote {
+  max-width: none;
+  justify-self: stretch;
+}
+
+.testimonial__quote p {
+  font-size: clamp(1.0625rem, 1.3vw, 1.25rem);
+}
+
+/* --- Gallery page ------------------------------------------------------------ */
+
+.gallery__head {
+  margin-bottom: clamp(24px, 3vw, 40px);
+}
+
+.gallery__title {
+  margin-top: 10px;
+  font-size: clamp(1.5rem, 2.4vw, 2.25rem);
+}
+
+.gallery + .gallery {
+  border-top: 1px solid var(--line);
+}
+
+.gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--grid-gap);
+}
+
+.gallery__figure {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  background: var(--surface-soft);
+  overflow: hidden;
+}
+
+.gallery__figure img {
+  object-fit: cover;
+  transition: transform 1s var(--ease);
+}
+
+.gallery__item:hover .gallery__figure img {
+  transform: scale(1.06);
+}
+
+.gallery-empty__note {
+  padding: clamp(28px, 4vw, 48px);
+  border: 1px dashed var(--line-strong);
+  color: var(--muted);
+  font-size: 0.9375rem;
+  text-align: center;
+}
+
 /* =============================================================================
    21. Responsive — each breakpoint re-composes rather than merely stacking
    ========================================================================== */
@@ -3397,7 +3652,24 @@ textarea {
     padding-left: 0;
   }
 
-  .also__grid {
+  .also__grid,
+  .nearby__grid,
+  .pdocs__list,
+  .gallery__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .nearby__item:nth-child(4n + 1) {
+    border-left: 1px solid var(--line);
+    padding-left: clamp(14px, 1.6vw, 22px);
+  }
+
+  .nearby__item:nth-child(2n + 1) {
+    border-left: 0;
+    padding-left: 0;
+  }
+
+  .testimonials__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -3691,21 +3963,32 @@ textarea {
   .formats__grid,
   .values__grid,
   .diffs__grid,
-  .also__grid {
+  .also__grid,
+  .nearby__grid,
+  .pdocs__list,
+  .gallery__grid,
+  .testimonials__grid {
     grid-template-columns: 1fr;
   }
 
   .format,
-  .diff {
+  .diff,
+  .nearby__item {
     border-left: 0;
     padding-left: 0;
     padding-right: 0;
   }
 
   .diff:nth-child(3n + 1),
-  .diff:nth-child(2n + 1) {
+  .diff:nth-child(2n + 1),
+  .nearby__item:nth-child(4n + 1),
+  .nearby__item:nth-child(2n + 1) {
     border-left: 0;
     padding-left: 0;
+  }
+
+  .pplan__list {
+    max-width: none;
   }
 
   .value + .value {

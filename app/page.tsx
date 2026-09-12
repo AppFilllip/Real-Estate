@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
 import { routes } from '@/lib/site';
 import { Credentials, Hero } from '@/components/hero';
-import { About, Stats } from '@/components/about';
+import { About, Differences, Stats } from '@/components/about';
 import { Completed, Projects } from '@/components/projects';
 import { ClosingCta, Leadership } from '@/components/leadership';
+import { Testimonials } from '@/components/testimonials';
+import { GalleryTeaser } from '@/components/gallery';
 import { Contact } from '@/components/contact';
 
 export const metadata: Metadata = {
@@ -23,7 +25,10 @@ export default function HomePage() {
       <Stats />
       <Projects />
       <Completed />
+      <Differences />
       <Leadership />
+      <Testimonials />
+      <GalleryTeaser />
       <ClosingCta />
       <Contact />
     </>

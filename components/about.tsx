@@ -214,8 +214,13 @@ export function Approach() {
   );
 }
 
-/** Why-us grid — hairline-ruled cells on white, no shadows, no boxes. */
-export function Differences() {
+/**
+ * Why-us grid — hairline-ruled cells on white, no shadows, no boxes.
+ *
+ * `withLink` points through to the full /why-choose-us page; dropped on that
+ * page itself, since linking to the page you're already on serves no one.
+ */
+export function Differences({ withLink = true }: { withLink?: boolean } = {}) {
   const { differences } = site.pages.about;
 
   return (
@@ -227,6 +232,9 @@ export function Differences() {
             <h2 className="display-2 reveal">
               <DisplayLines lines={differences.title} block="display-2" />
             </h2>
+            {withLink && (
+              <LinkArrow link={differences.more} className="diffs__more reveal" />
+            )}
           </div>
         </header>
 
